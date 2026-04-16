@@ -5,6 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DMAX - Catálogo Interativo</title>
     <style>
+	/* Rodapé */
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-top: 1px solid #ddd;
+            font-size: 0.9rem;
+            color: var(--dark-color);
+        }
+
+        footer a {
+            color: var(--Diniz-red);
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--dark-color);
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
         :root {
             --Diniz-red: #E30613;
             --dark-color: #3C3C3B;
@@ -15,16 +44,13 @@
 
         body { 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
-            margin: 0; display: flex; min-height: 100vh; 
+            margin: 0; display: flex; height: 100vh; 
             background: var(--bg-color); color: var(--text-color); 
-            flex-direction: row; /* Desktop padrão */
         }
 
-        /* --- Sidebar / Menu --- */
         .sidebar { 
             width: 300px; background: var(--dark-color); color: white; 
-            padding: 20px; box-shadow: 4px 0 10px rgba(0,0,0,0.1); 
-            overflow-y: auto; flex-shrink: 0;
+            padding: 20px; box-shadow: 4px 0 10px rgba(0,0,0,0.1); overflow-y: auto;
         }
         
         .sidebar h2 { border-bottom: 2px solid var(--Diniz-red); padding-bottom: 10px; text-transform: uppercase; font-size: 1rem; text-align: center; }
@@ -38,33 +64,32 @@
         .lente-card:hover { background: rgba(255,255,255,0.15); }
         .lente-card.active { background: var(--Diniz-red); border-color: white; font-weight: bold; }
 
-        /* --- Conteúdo Principal --- */
-        .main-content { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; align-items: center; }
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; align-items: center; }
         
+        /* Painel do Produto (Lente) */
         .lente-display {
             width: 100%; max-width: 800px; background: white; border-radius: 15px;
             display: flex; padding: 20px; gap: 20px; margin-bottom: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); align-items: center;
         }
-        
         .lente-img-container { width: 40%; }
         .lente-img-container img { width: 100%; border-radius: 10px; object-fit: contain; }
         .lente-info-container { width: 60%; }
-        .lente-info-container h2 { color: var(--dark-color); margin-top: 0; font-size: 1.3rem; }
+        .lente-info-container h2 { color: var(--dark-color); margin-top: 0; }
 
-        .tech-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 25px; }
+        .tech-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 25px; }
 
         .tech-icon {
-            width: 65px; height: 65px; background: var(--Diniz-red); 
+            width: 70px; height: 70px; background: var(--Diniz-red); 
             border-radius: 10px; cursor: pointer; transition: 0.3s; 
-            display: flex; align-items: center; justify-content: center; padding: 8px;
+            display: flex; align-items: center; justify-content: center; padding: 5px;
         }
         .tech-icon img { width: 100%; height: 100%; object-fit: contain; }
-        .tech-icon:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(227, 6, 19, 0.3); }
+        .tech-icon:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,151,167,0.3); }
 
         .display-panel {
             width: 100%; max-width: 800px; background: var(--card-bg); 
-            border-radius: 15px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-radius: 15px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             text-align: center; border-top: 6px solid var(--Diniz-red);
         }
 
@@ -73,35 +98,52 @@
 
         .tech-title { color: var(--Diniz-red); font-size: 1.4rem; margin: 10px 0; }
         .tech-desc { line-height: 1.5; font-size: 1rem; color: #444; }
+	
+	
+	@media (max-width: 768px) {
+ 	   body { 
+  	      flex-direction: column; /* Empilha o menu e o conteúdo */
+   	     height: auto; 
+ 	   }
+ 	   
+ 	   .sidebar { 
+ 	       width: 100%; 
+  	      height: auto; 
+ 	       padding: 10px; 
+   	     box-sizing: border-box;
+	    }
+	    
+ 	   /* Faz a lista de lentes virar um carrossel horizontal no topo */
+ 	   #lista-lentes {
+ 	       display: flex; 
+ 	       overflow-x: auto; 
+ 	       gap: 10px; 
+ 	       padding-bottom: 10px;
+	    }
+    
+ 	   .lente-card {
+ 	       flex: 0 0 auto; 
+ 	       margin-bottom: 0; 
+ 	       white-space: nowrap; 
+ 	       font-size: 0.9rem;
+ 	   }
 
-        footer { margin-top: auto; padding: 20px; width: 100%; text-align: center; border-top: 1px solid #ddd; font-size: 0.8rem; }
-        footer a { color: var(--Diniz-red); text-decoration: none; font-weight: bold; }
+	    /* Ajusta a exibição da lente para vertical */
+	    .lente-display { 
+  	      flex-direction: column; 
+ 	       text-align: center; 
+ 	   }
+ 	   
+ 	   .lente-img-container, .lente-info-container { 
+ 	       width: 100%; 
+ 	   }
+ 	   
+ 	   .tech-icon { 
+ 	       width: 55px; 
+   	     height: 55px; 
+  	  }
+	}
 
-        /* --- AJUSTES PARA CELULAR --- */
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            
-            .sidebar { 
-                width: 100%; padding: 10px; height: auto; 
-                box-sizing: border-box; overflow-y: hidden;
-            }
-            
-            #lista-lentes {
-                display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px;
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            .lente-card {
-                flex: 0 0 auto; margin-bottom: 0; padding: 10px 15px;
-                white-space: nowrap; font-size: 0.9rem;
-            }
-
-            .lente-display { flex-direction: column; text-align: center; padding: 15px; }
-            .lente-img-container, .lente-info-container { width: 100%; }
-            
-            .tech-icon { width: 55px; height: 55px; }
-            .main-content { padding: 15px; }
-        }
     </style>
 </head>
 <body>
@@ -119,7 +161,7 @@
             <div class="lente-info-container">
                 <h2 id="lente-nome-display"></h2>
                 <p id="lente-desc-display"></p>
-                <small>Toque nos ícones abaixo para ver a tecnologia:</small>
+                <small>Clique nos ícones abaixo para ver as tecnologias aplicadas:</small>
             </div>
         </div>
 
@@ -134,34 +176,35 @@
             <h3 id="tech-nome" class="tech-title"></h3>
             <p id="tech-desc" class="tech-desc"></p>
         </div>
-
-        <footer>
+	<footer>
             <p>Desenvolvido por <strong>Matheus Felipe 🤓</strong></p>
-            <a href="https://instagram.com/matheusuwinks" target="_blank">Instagram</a>
+            <div class="social-icons">
+                <a href="https://instagram.com/matheusuwinks" target="_blank">Instagram</a>
+            </div>
         </footer>
     </div>
 
     <script>
         const lentes = [
-            { id: 'Tecnologias', nome: 'Tecnologias DMAX', desc: 'Todas as tecnologias disponíveis em lentes.', foto: 'otica-diniz-logo.png', techs: ['fitting','inset','ergo','clear','slim','individual','freeform'] },
-            { id: 'standard', nome: 'Dmax Standard', desc: 'Equilíbrio entre longe e perto, conforto e adaptação rápida.', foto: 'DMAX STANDARD.jpeg', techs: ['fitting','inset','freeform'] },
-            { id: 'pro', nome: 'Dmax Pro', desc: 'Desenvolvida para usuários que priorizam um melhor campo de perto.', foto: 'DMAX PRO.jpeg', techs: ['fitting','inset','freeform'] },
-            { id: 'inovattion', nome: 'Dmax Inovattion', desc: 'Perfeito equilíbrio entre a visão de perto e longe.', foto: 'DMAX INDIVIDUAL.jpeg', techs: ['fitting','inset','slim','freeform'] },
-            { id: 'inovattion plus', nome: 'Dmax Inovattion Plus', desc: 'Equilíbrio binocular e tecnologia de alto conforto.', foto: 'DMAX Inovattion plus.jpeg', techs: ['fitting','inset','clear','slim','freeform'] },
-            { id: 'super freeform', nome: 'Dmax Super Freeform', desc: 'Visão panorâmica ideal para ambientes externos.', foto: 'DMAX Super freeform.jpeg', techs: ['fitting','inset','clear','slim','freeform'] },
-            { id: 'ultra', nome: 'Dmax Ultra', desc: 'Personalizada para quem prioriza o uso da visão de perto.', foto: 'DMAX ULTRA.jpeg', techs: ['fitting','inset','clear','slim','freeform'] },
-            { id: 'full', nome: 'Dmax Full', desc: 'Sistema que prioriza longe e perto equilibrando o olhar.', foto: 'DMAX FULL.jpeg', techs: ['fitting','inset','ergo','slim','freeform','clear'] },
-            { id: 'individual', nome: 'Dmax Individual', desc: 'Área lateral livre de astigmatismo e foco preciso.', foto: 'DMAX INDIVIDUAL.jpeg', techs: ['fitting','inset','ergo','slim','freeform','clear','individual'] }
+	    { id: 'Tecnologias', nome: 'Tecnologias DMAX', desc: 'Todas as tecnologias disponíveis em lentes.', foto: 'otica-diniz-logo.png', techs: ['fitting','inset','ergo','clear','slim','individual','freeform'] },
+            { id: 'standard', nome: 'Dmax Standard', desc: 'Lentes progressiva sem personalização, a lente possui o equilíbrio entre longe e perto, além de conforto singular em todas as atividades e adaptação rápida.', foto: 'DMAX STANDARD.jpeg', techs: ['fitting','inset','freeform'] },
+            { id: 'pro', nome: 'Dmax Pro', desc: 'Lente progressiva sem personalização, desenvolvida especialmente para usuários novos e experientes que priorizam um melhor campo de perto.', foto: 'DMAX PRO.jpeg', techs: ['fitting','inset','freeform'] },
+            { id: 'inovattion', nome: 'Dmax Inovattion', desc: 'As lentes DMax Inovattion proporcionam perfeito equilíbrio entre a visão de perto e longe, oferecem maior conforto em todas as atividades.', foto: 'DMAX INDIVIDUAL.jpeg', techs: ['fitting','inset','slim','freeform'] },
+            { id: 'inovattion plus', nome: 'Dmax Inovattion Plus', desc: 'As lentes DMax Inovattion Plus proporcionam perfeito equilíbrio binocular entre a visão de perto e longe, altamente tecnológica com maior conforto em todas as atividades.', foto: 'DMAX Inovattion plus.jpeg', techs: ['fitting','inset','clear','slim','freeform'] },
+            { id: 'super freeform', nome: 'Dmax Super Freeform', desc: 'A lente DMax Super Freeform prioriza o campo visual de longe, para usuários que buscam uma lente altamente tecnológica, confortável, acessível e ideal para ambientes externos. Oferece uma visão panorâmica de alto desempenho.', foto: 'DMAX Super freeform.jpeg', techs: ['fitting','inset','clear','slim','freeform'] },
+            { id: 'ultra', nome: 'Dmax Ultra', desc: 'Desenho personalizado, desenvolvido para usuários experientes que priorizam o uso da visão de perto, oferece equilíbrio e conforto para todas as ocasiões.', foto: 'DMAX ULTRA.jpeg', techs: ['fitting','inset','clear','slim','freeform'] },
+	    { id: 'full', nome: 'Dmax Full', desc: 'As lentes DMax Full possuem um avançado sistema que prioriza a visão de longe e perto, equilibrando o olhar e oferecendo maior conforto ao usuário.', foto: 'DMAX FULL.jpeg', techs: ['fitting','inset','ergo','slim','freeform','clear'] },
+	    { id: 'individual', nome: 'Dmax Individual', desc: 'Um lente perfeitamente equilibrada entre os campos para longe, intermediário e perto, deixando uma área lateral livre de astgmatismo, sendo possível focar para vários objetos sem mudar a direção do olhar.', foto: 'DMAX INDIVIDUAL.jpeg', techs: ['fitting','inset','ergo','slim','freeform','clear','individual'] }
         ];
 
         const techs = {
-            'fitting': { nome: 'Fitting Height Variável', desc: 'Ajusta o corredor visual à altura da armação.', img: 'FITTING HEIGHT VARIÁVEL.png', video: 'Fitting Height Variável.mp4' },
-            'inset': { nome: 'Inset Variável', desc: 'Otimiza a convergência dos olhos para leitura.', img: 'INSET VARIÁVEL.png', video: 'Inset Variável.mp4' },
-            'ergo': { nome: 'Perfil Digital Ergo', desc: 'Postura otimizada para uso de dispositivos digitais.', img: 'PERFIL DIGITAL ERGO.png', video: 'Perfil Digital Ergo.mp4' },
-            'clear': { nome: 'Clear Binocular Vision', desc: 'Visão periférica limpa e equilíbrio binocular.', img: 'CLEAR BINOCULAR VISION.png', video: 'Clear Binocular Vision.mp4' },
-            'slim': { nome: 'Slim Technology', desc: 'Lentes mais finas e leves com cálculos matemáticos.', img: 'SLIM TECHNOLOGY.png', video: 'slim technology.mp4' },
-            'individual': { nome: 'Individual Personalization', desc: 'Lente fabricada sob medida para seu comportamento.', img: 'INDIVIDUAL PERSONALIZATION.png', video: 'Individual Personalization.mp4' },
-            'freeform': { nome: 'Freeform Technology', desc: 'Surfaçagem digital ponto a ponto de alta precisão.', img: 'FREEFORM TECHNOLOGY.png', video: 'Freeform Technology.mp4' }
+            'fitting': { nome: 'Fitting Height Variável', desc: 'Ajusta o corredor visual à altura da armação.', img: 'fitting height variável.png', video: 'Fitting Height Variável.mp4' },
+            'inset': { nome: 'Inset Variável', desc: 'Otimiza a convergência dos olhos para leitura.', img: 'inset variável.png', video: 'Inset Variável.mp4' },
+            'ergo': { nome: 'Perfil Digital Ergo', desc: 'Postura otimizada para uso de dispositivos digitais.', img: 'perfil digital ergo.png', video: 'Perfil Digital Ergo.mp4' },
+            'clear': { nome: 'Clear Binocular Vision', desc: 'Visão periférica limpa e equilíbrio binocular.', img: 'clear binocular vision.png', video: 'Clear Binocular Vision.mp4' },
+            'slim': { nome: 'Slim Technology', desc: 'Lentes mais finas e leves com cálculos matemáticos.', img: 'slim technology.png', video: 'slim technology.mp4' },
+            'individual': { nome: 'Individual Personalization', desc: 'Lente fabricada sob medida para seu comportamento visual.', img: 'individual personalization.png', video: 'Individual Personalization.mp4' },
+            'freeform': { nome: 'Freeform Technology', desc: 'Surfaçagem digital ponto a ponto de alta precisão.', img: 'freeform technology.png', video: 'Freeform Technology.mp4' }
         };
 
         const sidebarLista = document.getElementById('lista-lentes');
@@ -188,13 +231,11 @@
             grid.innerHTML = '';
             lente.techs.forEach(tKey => {
                 const t = techs[tKey];
-                if (t) {
-                    const div = document.createElement('div');
-                    div.className = 'tech-icon';
-                    div.innerHTML = `<img src="${t.img}" title="${t.nome}">`;
-                    div.onclick = () => mostrarTech(tKey);
-                    grid.appendChild(div);
-                }
+                const div = document.createElement('div');
+                div.className = 'tech-icon';
+                div.innerHTML = `<img src="${t.img}" title="${t.nome}">`;
+                div.onclick = () => mostrarTech(tKey);
+                grid.appendChild(div);
             });
         }
 
